@@ -1,2 +1,60 @@
-@import "../node_modules/sass-true/sass/true";
-@debug 'Tests yet to be made';
+@import '../index.scss';
+
+$testString: 'The quïck brøwn föx jumps over thé l4zy d0g';
+
+// unquote('TheQuickBrownFoxJumpsOverTheL4zyD0g')
+
+$testString: 'Test test';
+
+$test-results: ();
+
+@include test(
+	'PascalCase() function',
+	'Convert a string to a PascalCase string'
+) {
+	@include is-equal(PascalCase($testString), 'TestTest');
+}
+
+@include test(
+	'dasherize() function',
+	'Convert a string to a dashed (slug) string'
+) {
+	@include is-equal(dasherize($testString), 'test-test');
+}
+
+@include test(
+	'rem() function',
+	'Convert a value in pixels to the same value in rem.'
+) {
+	@include is-equal(rem(16), 1rem);
+}
+
+@include test('str-replace() function', 'Replace a letter in a string') {
+	@include is-equal(str-replace('t3st', '3', 'e'), 'test');
+}
+@include test(
+	'str-replace() function',
+	'Replace multiple letters in a string with one value'
+) {
+	@include is-equal(str-replace('7es7', '7', 't'), 'test');
+}
+@include test(
+	'str-replace() function',
+	'Replace a set of letters in a string with a value'
+) {
+	@include is-equal(str-replace('7es7', ('7', '3'), ('t', 'e')), 'test');
+}
+@include test(
+	'str-replace() function',
+	'Replace a set of letters in a string with one value (as a list)'
+) {
+	@include is-equal(str-replace('7ts7', ('7', '3'), ('t')), 'ttst');
+}
+@include test(
+	'str-replace() function',
+	'Replace a set of letters in a string with one value (as a string)'
+) {
+	@include is-equal(str-replace('7ts7', ('7', '3'), 't'), 'ttst');
+}
+
+@include test-results($test-results);

@@ -1,0 +1,84 @@
+@import 'sest-diff';
+
+$has-warnings: false;
+$test-results: null !default;
+
+@function extra-info($value, $hide) {
+	@if $hide {
+		@return '';
+	} @else {
+		$return: '│   type: #{type-of($value)}';
+		@if type-of($value) == 'string' {
+			$return: '#{$return}	│   length: #{str-length($value)}';
+		}
+		@if type-of($value) == 'list' {
+			$return: '#{$return}	│   length: #{length($value)}';
+		}
+		@return $return;
+	}
+}
+
+@mixin test($title: '', $description: '') {
+	@debug '	╭────────────────────';
+	@debug '	│';
+	@debug '	│';
+	@debug '	│ 	#{$title}';
+	@debug '	│ 	#{$description}';
+	@debug '	│';
+	// Set results
+	$test-results: prepend($test-results, $title);
+	@content;
+}
+@mixin is-equal($value1, $value2) {
+	$passed: false;
+	@if $value1 == $value2 {
+		$passed: true;
+	}
+
+	@if $passed == false {
+		$has-warnings: true;
+		@debug '	│	[✖] Failed';
+	} @else {
+		@debug '	│	[✓] Passed';
+	}
+	@debug '	│';
+	@debug '	│';
+	@if $passed == false {
+		@debug '	├────────────────────';
+		@debug '	│';
+		@debug '	│   inserted: 	#{$value1}	#{extra-info($value1, $passed)}';
+		@debug '	│   expected: 	#{$value2}	#{extra-info($value2, $passed)}';
+		@debug '	│';
+		$difference: diff($value1, $value2);
+		@if type-of($difference) == 'list' {
+			@debug '	├────────────────────';
+			@debug '	│';
+			@debug '	│   difference:';
+			@each $diff in $difference {
+				@debug '	│   #{$diff}';
+			}
+			@debug '	│';
+			@debug '	╰────────────────────';
+		} @else {
+			@debug 'difference: 	#{$difference}';
+		}
+	} @else {
+		@debug '	╰────────────────────';
+	}
+	$test-results: prepend($test-results, $passed);
+}
+
+@mixin test-results($results) {
+	@debug '	';
+	@debug '	╭─┬───────────────────';
+	@debug '	│ │';
+	@debug '	│ │   RESULTS: (#{length($results)})';
+	@if length($results) > 0 {
+		@debug $test-results;
+		@each $result in $results {
+			@debug '	│   #{$result}';
+		}
+	}
+	@debug '	│ │';
+	@debug '	╰─┴───────────────────';
+}
