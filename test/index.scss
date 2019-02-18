@@ -4,22 +4,27 @@ $testString: 'The quïck brøwn föx jumps over thé l4zy d0g';
 
 // unquote('TheQuickBrownFoxJumpsOverTheL4zyD0g')
 
-$testString: 'Test test';
-
+// $testString: 'Test test';
 $test-results: ();
 
 @include test(
 	'PascalCase() function',
 	'Convert a string to a PascalCase string'
 ) {
-	@include is-equal(PascalCase($testString), 'TestTest');
+	@include is-equal(
+		PascalCase($testString),
+		'TheQuickBrownFoxJumpsOverTheL4zyD0g'
+	);
 }
 
 @include test(
 	'dasherize() function',
 	'Convert a string to a dashed (slug) string'
 ) {
-	@include is-equal(dasherize($testString), 'test-test');
+	@include is-equal(
+		dasherize($testString),
+		'the-quick-brown-fox-jumps-over-the-l4zy-d0g'
+	);
 }
 
 @include test(
@@ -30,31 +35,46 @@ $test-results: ();
 }
 
 @include test('str-replace() function', 'Replace a letter in a string') {
-	@include is-equal(str-replace('t3st', '3', 'e'), 'test');
+	@include is-equal(
+		str-replace($testString, 'ï', 'i'),
+		'The quick brøwn föx jumps over thé l4zy d0g'
+	);
 }
 @include test(
 	'str-replace() function',
 	'Replace multiple letters in a string with one value'
 ) {
-	@include is-equal(str-replace('7es7', '7', 't'), 'test');
+	@include is-equal(
+		str-replace($testString, 'r', 'R'),
+		'The quïck bRøwn föx jumps oveR thé l4zy d0g'
+	);
 }
 @include test(
 	'str-replace() function',
 	'Replace a set of letters in a string with a value'
 ) {
-	@include is-equal(str-replace('7es7', ('7', '3'), ('t', 'e')), 'test');
+	@include is-equal(
+		str-replace($testString, ('ï', 'ø'), ('i', 'o')),
+		'The quick brown föx jumps over thé l4zy d0g'
+	);
 }
 @include test(
 	'str-replace() function',
 	'Replace a set of letters in a string with one value (as a list)'
 ) {
-	@include is-equal(str-replace('7ts7', ('7', '3'), ('t')), 'ttst');
+	@include is-equal(
+		str-replace($testString, ('ï', 'ø'), ('I')),
+		'The quIck brIwn föx jumps over thé l4zy d0g'
+	);
 }
 @include test(
 	'str-replace() function',
 	'Replace a set of letters in a string with one value (as a string)'
 ) {
-	@include is-equal(str-replace('7ts7', ('7', '3'), 't'), 'ttst');
+	@include is-equal(
+		str-replace($testString, ('ï', 'ø'), 'I'),
+		'The quIck brIwn föx jumps over thé l4zy d0g'
+	);
 }
 
 @include test-results($test-results);

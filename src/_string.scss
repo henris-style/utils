@@ -201,7 +201,7 @@
 @function dasherize($str) {
 	$str: str-replace($str, ' ', '-');
 	$str: str-replace($str, ' ', '-');
-	$str: safeLetter(allowed-chars(to-lower-case($str), ('a-z', '0-9', '-')));
+	$str: allowed-chars(to-lower-case(safeLetter($str)),('a-z', '0-9', '-'));
 	@return $str;
 }
 
