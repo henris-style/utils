@@ -10,9 +10,10 @@
 					$diff-list,
 					'##{$i}:   #{nth($inserted-list, $i)}	≠ #{nth($expected-list, $i)}'
 				);
-			} @else {
-				$diff-list: append($diff-list, '##{$i}:   ✓');
-			}
+			} 
+			// @else {
+			// 	$diff-list: append($diff-list, '##{$i}:   ✓');
+			// }
 		}
 	} @else {
 		$diff-list: append(
@@ -29,10 +30,10 @@
 					'##{$i}:   #{nth($inserted-list, $i)}	≠ #{nth($expected-list, $i)}'
 				);
 			} @else {
-				$diff-list: append(
-					$diff-list,
-					'##{$i}:   ✓ #{nth($inserted-list, $i)}'
-				);
+				// $diff-list: append(
+				// 	$diff-list,
+				// 	'##{$i}:   ✓ #{nth($inserted-list, $i)}'
+				// );
 			}
 		}
 	}

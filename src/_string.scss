@@ -215,10 +215,7 @@
 /// @parameter String
 
 @function underscore($str) {
-	$str: safeLetter(
-		allowed-chars(to-lower-case(str-replace($str, ' ', '_')), ('a-Z', '0-9'))
-	);
-	@return $str;
+	@return str-replace-func(dasherize($str),'-','_');
 }
 
 // letter-uppercase function

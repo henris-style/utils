@@ -27,6 +27,17 @@ $test-results: ();
 	);
 }
 
+
+@include test(
+	'underscore() function',
+	'Convert a string to a underscored (slug) string'
+) {
+	@include is-equal(
+		underscore($testString),
+		'the_quick_brown_fox_jumps_over_the_l4zy_d0g'
+	);
+}
+
 @include test(
 	'rem() function',
 	'Convert a value in pixels to the same value in rem.'

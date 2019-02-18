@@ -59,13 +59,19 @@ $test-results: null !default;
 			}
 			@debug '	│';
 			@debug '	╰────────────────────';
+			@error 'Function did not pass';
 		} @else {
-			@debug 'difference: 	#{$difference}';
+			@debug '	├────────────────────';
+			@debug '	│';
+			@debug '	│   difference: 	#{$difference}';
+			@debug '	│';
+			@debug '	╰────────────────────';
+			@error 'Function did not pass';
 		}
 	} @else {
 		@debug '	╰────────────────────';
 	}
-	$test-results: prepend($test-results, $passed);
+	
 }
 
 @mixin test-results($results) {
@@ -76,7 +82,7 @@ $test-results: null !default;
 	@if length($results) > 0 {
 		@debug $test-results;
 		@each $result in $results {
-			@debug '	│   #{$result}';
+			@debug '	│ │   #{$result}';
 		}
 	}
 	@debug '	│ │';
