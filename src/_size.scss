@@ -1,43 +1,46 @@
 $base-font-size: 16px !default;
 
-@function calc-rem($size) {
-	$remSize: $size / #{$base-font-size}px;
-	@return $remSize * 1rem;
-}
-
-@function convert-to-rem($value, $base-value: $rem-base) {
+@function rem-calc($value, $base-value: $base-font-size) {
 	$value: strip-unit($value) / strip-unit($base-value) * 1rem;
 	@if ($value == 0rem) {
 		$value: 0;
 	} // Turn 0rem into 0
 	@return $value;
 }
-
-@function rem-calc($values, $base-value: $base-font-size) {
-	$max: length($values);
-	@if $max == 1 {
-		@return convert-to-rem(nth($values, 1), $base-value);
-	}
-
-	$remValues: ();
-
-	@for $i from 1 through $max {
-		$remValues: append(
-			$remValues,
-			convert-to-rem(nth($values, $i), $base-value)
-		);
-	}
-
-	@return $remValues;
-}
 @function rem($value) {
 	$sizes: null;
 	@if length($value) > 1 {
-		@each $size in $value {
-			$sizes: $sizes #{rem-calc($size)};
+		@if $sizes == null{
+			$sizes: #{rem-calc($size)};
+		} @else {
+			$sizes: $sizes #{rem-calc($size)}
 		}
 	} @else {
 		$sizes: rem-calc($value);
+	}
+	@return $sizes;
+}
+
+@function px-calc($value, $base-value: $base-font-size) {
+	$value: strip-unit($value) * (strip-unit($base-value) * 1px);
+	@if ($value == 0px) {
+		$value: 0;
+	} // Turn 0px into 0px
+	@return $value;
+}
+
+@function px($value) {
+	$sizes: null;
+	@if length($value) > 1 {
+		@each $size in $value {
+			@if $sizes == null{
+				$sizes: #{px-calc($size)};
+			} @else {
+				$sizes: $sizes #{px-calc($size)}
+			}
+		}
+	} @else {
+		$sizes: px-calc($value);
 	}
 	@return $sizes;
 }

@@ -30,7 +30,8 @@
   "homepage": "https://github.com/henris-style/utils#readme",
   "devDependencies": {
     "node-sass": "^4.11.0",
-    "sass": "^1.17.0"
+    "sass": "^1.17.0",
+    "ssst": "0.0.3"
   },
   "dependencies": {}
 }

@@ -201,7 +201,7 @@
 @function dasherize($str) {
 	$str: str-replace($str, ' ', '-');
 	$str: str-replace($str, ' ', '-');
-	$str: allowed-chars(to-lower-case(safeLetter($str)),('a-z', '0-9', '-'));
+	$str: allowed-characters(to-lower-case(safe-characters($str)),('a-z', '0-9', '-'));
 	@return $str;
 }
 
@@ -270,7 +270,7 @@
 @function PascalCase($str) {
 	// @return $str;
 
-	$new-str: allowed-chars(to-lower-case(safeLetter($str)), ('a-Z', '0-9', ' '));
+	$new-str: allowed-characters(to-lower-case(safe-characters($str)), ('a-Z', '0-9', ' '));
 	$temp-list: str-splice($new-str, ' ');
 
 	$return-str: ();
