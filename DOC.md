@@ -5,8 +5,9 @@
 Convert a string to safe letters. 
 
 **Example:**
-input: safe-characters('Bjørk');
-output: Bjork
+| input                    | output                                          |
+| ------------------------ | ----------------------------------------------- |
+| `safe-characters('Bjørk')` | `Bjork` |
 	
 ### character-set
 Receive a list of letters. 
@@ -19,6 +20,7 @@ Receive a list of letters.
 | `character-set(('0-9'))` | `("0" "1" "2" "3" "4" "5" "5" "6" "7" "8" "9")` |
 
 **Options**
+
 | input | output                                                                                         |
 | ----- | ---------------------------------------------------------------------------------------------- |
 | `a-z` | Returns all letters from a to z lowercase.                                                     |
@@ -51,6 +53,7 @@ Add a value to the beginning of a list.
 Convert a string to a list. 
 
 **Arguments**
+
 | argument     | description                                                    |
 | ------------ | -------------------------------------------------------------- |
 | `$string`    | The string to be separated into a list                         |
@@ -61,6 +64,7 @@ Flatten a list and make it into a string.
 
 
 **Arguments**
+
 | argument     | description                                     |
 | ------------ | ----------------------------------------------- |
 | `$list`      | The list to be flattened into a string          |
@@ -95,6 +99,7 @@ Wrapper function to convert pixel values to rem
 | `rem(14 16 20)` | `0.875rem 1rem 1.25rem` |
 
 **Arguments**
+
 | input     | output                                            |
 | --------- | ------------------------------------------------- |
 | `$values` | Accept one value or multiple separated by spaces. |
@@ -113,6 +118,7 @@ Wrapper function to convert rem values to pixels
 | `rem(0.8 1 1.5)` | `12.8px 16px 24px` |
 
 **Arguments**
+
 | argument  | description                                       |
 | --------- | ------------------------------------------------- |
 | `$values` | Accept one value or multiple separated by spaces. |
