@@ -1,3 +1,8 @@
+# Henri's Utils
+The utility package of Henri's.
+
+This package includes all simple functions used in most other packages. Utils can also be used separate from Henri's
+
 
 ## Characters
 
@@ -5,6 +10,7 @@
 Convert a string to safe letters. 
 
 **Example:**
+
 | input                    | output                                          |
 | ------------------------ | ----------------------------------------------- |
 | `safe-characters('Bjørk')` | `Bjork` |
