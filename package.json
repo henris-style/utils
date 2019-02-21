@@ -10,7 +10,10 @@
     "build": "npm run build:sass && npm run build:node-sass",
     "build:sass": "sass index.local.scss dist/sass/index.css",
     "build:node-sass": "node-sass index.local.scss dist/node-sass/index.css",
-    "prepublishOnly": "npm run test && npm run build"
+    "build:dist": "npm run stylelint:fix && npm run build",
+		"stylelint": "stylelint 'src/scss/**/*.scss'",
+		"stylelint:fix": "stylelint 'src/scss/**/*.scss' --fix",
+    "prepublishOnly": "npm run dist"
   },
   "repository": {
     "type": "git",
@@ -31,7 +34,10 @@
   "devDependencies": {
     "node-sass": "^4.11.0",
     "sass": "^1.17.0",
-    "ssst": "0.0.3"
+    "ssst": "0.0.3",
+    "stylelint": "^9.10.1",
+    "stylelint-logical-order": "0.0.4",
+    "stylelint-order": "^2.0.0"
   },
   "dependencies": {}
 }
