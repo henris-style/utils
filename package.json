@@ -13,7 +13,7 @@
     "build:dist": "npm run stylelint:fix && npm run build",
     "stylelint": "stylelint 'src/scss/**/*.scss'",
     "stylelint:fix": "stylelint 'src/scss/**/*.scss' --fix",
-    "prepublishOnly": "npm run dist"
+    "prepublishOnly": "npm run build:dist"
   },
   "repository": {
     "type": "git",
