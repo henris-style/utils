@@ -188,11 +188,11 @@
 }
 
 @function str-contains($haystack, $needle) {
-	@if index($haystack, $needle) !=
+	@if str-index($haystack, $needle) !=
 		null and
-		index($haystack, $needle) !=
+		str-index($haystack, $needle) !=
 		'' and
-		type-of(index($haystack, $needle)) !=
+		type-of(str-index($haystack, $needle)) !=
 		null
 	{
 		@return true;
