@@ -56,6 +56,14 @@
 	@return if(type-of($value) != list, ($value), $value);
 }
 
+@function list-length($list){
+	$length: 0;
+	@each $item in $list{
+		$length: $length + 1; 
+	}
+	@return $length;
+}
+
 @function list-to-str($list,$separator: ', ', $last: true){
 	$string: nth($list,1);
 	
