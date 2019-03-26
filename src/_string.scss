@@ -175,6 +175,12 @@
 	@else if type-of('#{$str}') == 'string' {
 		@return '#{$str}';
 	}
+	@else if $str == false {
+		@return 'false';
+	}
+	@else if $str == true {
+		@return 'false';
+	}
 	// If it still won't be a string, just try to throw it back.
 	@else {
 		@return '#{$str}';
@@ -182,7 +188,13 @@
 }
 
 @function str-contains($haystack, $needle) {
-	@if index($haystack, $needle) != null or index($haystack, $needle) != '' {
+	@if index($haystack, $needle) !=
+		null and
+		index($haystack, $needle) !=
+		'' and
+		type-of(index($haystack, $needle)) !=
+		null
+	{
 		@return true;
 	} @else {
 		@return false;

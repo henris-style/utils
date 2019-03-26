@@ -1,3 +1,25 @@
+
+// add-length
+// --------------------------
+/// Get a string and add extra spaces to make the string longer. 
+/// Usefull in debugging and making all stirngs the same length.
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function add-length($string,$length){
+	@if str-length($string) < $length{
+		@while str-length($string) < $length{
+			$string: "#{$string} ";
+		}
+		@return $string; 
+	} @else {
+		@return $string;
+	}
+}
+
 // safe-characters
 // --------------------------
 /// Convert special characters in strings to their simple equivalent
@@ -7,6 +29,7 @@
 /// @type String
 /// @output String
 /// @parameter String
+
 
 @function safe-characters($str) {
 	// prettier-ignore
