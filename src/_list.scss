@@ -56,17 +56,22 @@
 	@return if(type-of($value) != list, ($value), $value);
 }
 
-@function list-to-str($list, $separator: '') {
-	$str: null;
-	@for $i from 1 through length($list) {
-		@if $str != null {
-			$str: '#{$str}#{$separator}#{nth($list,$i)}';
+@function list-to-str($list,$separator: ', ', $last: true){
+	$string: nth($list,1);
+	
+	@for $i from 2 through list-length($list){
+		$item: nth($list,$i);
+		@if $i == list-length($list) + 1{
+			$string: #{$string}#{$item};
 		} @else {
-			$str: '#{$separator}#{nth($list,$i)}';
+			$string: #{$string}#{$separator}#{$item};
 		}
 	}
-	@return $str;
+	@return $string; 
 }
+
+
+
 
 @function to-letter-list($str) {
 	$letters: ();
