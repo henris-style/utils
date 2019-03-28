@@ -3,6 +3,10 @@
 	@return $num;
 }
 
-// @function get-unit($number){
-// 	@if 
-// }
+@function to-rem($v) {
+	@if unit($v) == 'rem' {
+		@return $v;
+	} @else if unit($v) == 'px' {
+		@return rem($v);
+	}
+}
