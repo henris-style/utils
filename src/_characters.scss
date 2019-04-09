@@ -2,7 +2,7 @@
 // add-length
 // --------------------------
 /// Get a string and add extra spaces to make the string longer. 
-/// Usefull in debugging and making all stirngs the same length.
+/// Usefull in debugging and making all strings the same length.
 /// @access public
 /// @group Character utilities
 /// @type String
@@ -19,6 +19,49 @@
 		@return $string;
 	}
 }
+
+
+// add-zeros
+// --------------------------
+/// Add extra zeros to a number.
+/// When you want to create classes with 01, 003 or something equivalent
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function add-zeros($val: 1,$length: 2){
+	$value: null;
+	$str: '#{$val}';
+	@if length($str) >= $length{
+		@return $str;
+	} @else {
+		$str-length: length($str);
+		$value: #{add-character('0',$length - $str-length)}#{$str};		
+	}
+	@return $value; 	
+}
+
+
+// add-characters
+// --------------------------
+/// Create a string with given character times a given amount of times
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function add-character($char,$times: 1){
+	$value: null;
+	@for $i from 1 through $times{
+		$value: #{$value}#{$char};
+	}
+	@return $value; 
+}
+
+
 
 // safe-characters
 // --------------------------
