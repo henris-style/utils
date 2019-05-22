@@ -7,17 +7,21 @@ $base-font-size: 16px !default;
 	} // Turn 0rem into 0
 	@return $value;
 }
-@function rem($value) {
+@function rem($values) {
 	$sizes: null;
-	@if length($value) > 1 {
-		@if $sizes == null{
-			$sizes: #{rem-calc($size)};
-		} @else {
-			$sizes: $sizes #{rem-calc($size)}
+
+	@if length($values) > 1 {
+		@each $size in $values{
+			@if $sizes == null {
+				$sizes: #{rem-calc($size)};
+			} @else {
+				$sizes: $sizes #{rem-calc($size)};
+			}
 		}
 	} @else {
-		$sizes: rem-calc($value);
+		$sizes: rem-calc($values);
 	}
+	
 	@return $sizes;
 }
 
@@ -33,10 +37,10 @@ $base-font-size: 16px !default;
 	$sizes: null;
 	@if length($value) > 1 {
 		@each $size in $value {
-			@if $sizes == null{
+			@if $sizes == null {
 				$sizes: #{px-calc($size)};
 			} @else {
-				$sizes: $sizes #{px-calc($size)}
+				$sizes: $sizes #{px-calc($size)};
 			}
 		}
 	} @else {

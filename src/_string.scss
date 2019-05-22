@@ -174,11 +174,9 @@
 	// Check if the value will become a string, if you put it in quotes.
 	@else if type-of('#{$str}') == 'string' {
 		@return '#{$str}';
-	}
-	@else if $str == false {
+	} @else if $str == false {
 		@return 'false';
-	}
-	@else if $str == true {
+	} @else if $str == true {
 		@return 'false';
 	}
 	// If it still won't be a string, just try to throw it back.
@@ -213,7 +211,10 @@
 @function dasherize($str) {
 	$str: str-replace($str, ' ', '-');
 	$str: str-replace($str, ' ', '-');
-	$str: allowed-characters(to-lower-case(safe-characters($str)),('a-z', '0-9', '-'));
+	$str: allowed-characters(
+		to-lower-case(safe-characters($str)),
+		('a-z', '0-9', '-')
+	);
 	@return $str;
 }
 
@@ -227,7 +228,7 @@
 /// @parameter String
 
 @function underscore($str) {
-	@return str-replace-func(dasherize($str),'-','_');
+	@return str-replace-func(dasherize($str), '-', '_');
 }
 
 // letter-uppercase function
@@ -242,14 +243,14 @@
 @function letter-uppercase($str, $letter: 1) {
 	$new-str: ();
 	@if $letter > 1 {
-		$new-str: append($new-str,str-slice($str,1,$letter));
-		$new-str: append($new-str,to-upper-case(str-slice($str,$letter,1)));
-		$new-str: append($new-str),str-slice($str,$letter + 1,str-length($str));
+		$new-str: append($new-str, str-slice($str, 1, $letter));
+		$new-str: append($new-str, to-upper-case(str-slice($str, $letter, 1)));
+		$new-str: append($new-str), str-slice($str, $letter + 1, str-length($str));
 	} @else {
-		$new-str: append($new-str,to-upper-case(str-slice($str,1,1)));
-		$new-str: append($new-str,str-slice($str,2,str-length($str)));
+		$new-str: append($new-str, to-upper-case(str-slice($str, 1, 1)));
+		$new-str: append($new-str, str-slice($str, 2, str-length($str)));
 	}
-	@return list-to-str($new-str);
+	@return list-to-str($new-str, null);
 }
 
 // letter-lowercase function
@@ -280,16 +281,17 @@
 /// @parameter String
 
 @function PascalCase($str) {
-	// @return $str;
-
-	$new-str: allowed-characters(to-lower-case(safe-characters($str)), ('a-Z', '0-9', ' '));
+	$new-str: allowed-characters(
+		to-lower-case(safe-characters($str)),
+		('a-Z', '0-9', ' ')
+	);
 	$temp-list: str-splice($new-str, ' ');
 
 	$return-str: ();
 	@for $i from 1 through length($temp-list) {
 		$return-str: append($return-str, letter-uppercase(nth($temp-list, $i)));
 	}
-	@return trim(list-to-str($return-str));
+	@return trim(list-to-str($return-str, null));
 }
 
 // camelCase function

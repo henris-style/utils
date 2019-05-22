@@ -1,7 +1,6 @@
-
 // add-length
 // --------------------------
-/// Get a string and add extra spaces to make the string longer. 
+/// Get a string and add extra spaces to make the string longer.
 /// Usefull in debugging and making all strings the same length.
 /// @access public
 /// @group Character utilities
@@ -9,17 +8,16 @@
 /// @output String
 /// @parameter String
 
-@function add-length($string,$length){
-	@if str-length($string) < $length{
-		@while str-length($string) < $length{
-			$string: "#{$string} ";
+@function add-length($string, $length) {
+	@if str-length($string) < $length {
+		@while str-length($string) < $length {
+			$string: '#{$string} ';
 		}
-		@return $string; 
+		@return $string;
 	} @else {
 		@return $string;
 	}
 }
-
 
 // add-zeros
 // --------------------------
@@ -31,18 +29,17 @@
 /// @output String
 /// @parameter String
 
-@function add-zeros($val: 1,$length: 2){
+@function add-zeros($val: 1, $length: 2) {
 	$value: null;
 	$str: '#{$val}';
-	@if length($str) >= $length{
+	@if length($str) >= $length {
 		@return $str;
 	} @else {
 		$str-length: length($str);
-		$value: #{add-character('0',$length - $str-length)}#{$str};		
+		$value: #{add-character('0', $length - $str-length)}#{$str};
 	}
-	@return $value; 	
+	@return $value;
 }
-
 
 // add-characters
 // --------------------------
@@ -53,15 +50,13 @@
 /// @output String
 /// @parameter String
 
-@function add-character($char,$times: 1){
+@function add-character($char, $times: 1) {
 	$value: null;
-	@for $i from 1 through $times{
+	@for $i from 1 through $times {
 		$value: #{$value}#{$char};
 	}
-	@return $value; 
+	@return $value;
 }
-
-
 
 // safe-characters
 // --------------------------
@@ -72,7 +67,6 @@
 /// @type String
 /// @output String
 /// @parameter String
-
 
 @function safe-characters($str) {
 	// prettier-ignore
@@ -159,5 +153,5 @@
 			$new-str: append($new-str, str-slice($str, $i, $i));
 		}
 	}
-	@return list-to-str($new-str);
+	@return list-to-str($new-str, null);
 }
