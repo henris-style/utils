@@ -311,7 +311,7 @@
 
 @function trim($str) {
 	@if str-slice($str, 1, 1) == '' {
-		@debug 'there is a fucking empty thingy here';
+		@debug 'there is a empty thingy here';
 	}
 	@if str-slice($str, 1, 1) == ' ' {
 		@return trim(str-slice($str, 2, str-length($str)));
