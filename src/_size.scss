@@ -11,7 +11,7 @@ $base-font-size: 16px !default;
 	$sizes: null;
 
 	@if length($values) > 1 {
-		@each $size in $values{
+		@each $size in $values {
 			@if $sizes == null {
 				$sizes: #{rem-calc($size)};
 			} @else {
@@ -21,7 +21,7 @@ $base-font-size: 16px !default;
 	} @else {
 		$sizes: rem-calc($values);
 	}
-	
+
 	@return $sizes;
 }
 
@@ -47,4 +47,21 @@ $base-font-size: 16px !default;
 		$sizes: px-calc($value);
 	}
 	@return $sizes;
+}
+
+@function to-px($value) {
+	@if type-of($value) == "number" {
+		@if unit($value) == "px" {
+			@return $value;
+		} @else if unit($value) == "rem" {
+			@return strip-unit($value) * $base-font-size;
+		} @else if unit($value) == "" or unit($value) == null {
+			@return #{$value}px;
+		} @else {
+			@debug "Can't #{$value} to px";
+			@return $value;
+		}
+	} @else {
+		@return $value;
+	}
 }
