@@ -11,7 +11,7 @@
 @function add-length($string, $length) {
 	@if str-length($string) < $length {
 		@while str-length($string) < $length {
-			$string: '#{$string} ';
+			$string: "#{$string} ";
 		}
 		@return $string;
 	} @else {
@@ -31,12 +31,12 @@
 
 @function add-zeros($val: 1, $length: 2) {
 	$value: null;
-	$str: '#{$val}';
+	$str: "#{$val}";
 	@if length($str) >= $length {
 		@return $str;
 	} @else {
 		$str-length: length($str);
-		$value: #{add-character('0', $length - $str-length)}#{$str};
+		$value: #{add-character("0", $length - $str-length)}#{$str};
 	}
 	@return $value;
 }
@@ -89,42 +89,42 @@
 	$new-characters: ();
 	$return-default: true;
 	$character-set: (
-		'numbers': '01234556789',
-		'lowercase': 'abcdefghijklmnopqrstuvwxyz',
-		'uppercase': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		"numbers": "01234556789",
+		"lowercase": "abcdefghijklmnopqrstuvwxyz",
+		"uppercase": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	);
 	@each $char in $characters {
-		@if $char == 'a-Z' {
+		@if $char == "a-Z" {
 			$return-default: false;
 			$new-characters: join(
 				$new-characters,
-				to-letter-list(map-get($character-set, 'lowercase'))
+				to-letter-list(map-get($character-set, "lowercase"))
 			);
 			$new-characters: join(
 				$new-characters,
-				to-letter-list(map-get($character-set, 'uppercase'))
+				to-letter-list(map-get($character-set, "uppercase"))
 			);
-		} @else if $char == 'a-z' {
+		} @else if $char == "a-z" {
 			$return-default: false;
 			$new-characters: join(
 				$new-characters,
-				to-letter-list(map-get($character-set, 'lowercase'))
+				to-letter-list(map-get($character-set, "lowercase"))
 			);
-		} @else if $char == 'A-Z' {
+		} @else if $char == "A-Z" {
 			$return-default: false;
 			$new-characters: join(
 				$new-characters,
-				to-letter-list(map-get($character-set, 'uppercase'))
+				to-letter-list(map-get($character-set, "uppercase"))
 			);
-		} @else if $char == '0-9' {
+		} @else if $char == "0-9" {
 			$return-default: false;
 			$new-characters: join(
 				$new-characters,
-				to-letter-list(map-get($character-set, 'numbers'))
+				to-letter-list(map-get($character-set, "numbers"))
 			);
-		} @else if type-of($char) == 'string' {
+		} @else if type-of($char) == "string" {
 			$new-characters: append($new-characters, $char);
-		} @else if type-of($char) == 'list' {
+		} @else if type-of($char) == "list" {
 			$new-characters: join($new-characters, $char);
 		}
 	}
@@ -142,9 +142,9 @@
 /// @parameter String
 
 @function allowed-characters($str, $characters: ()) {
-	@if type-of($characters) == 'string' {
+	@if type-of($characters) == "string" {
 		$characters: to-letter-list($characters);
-	} @else if type-of($characters) == 'list' {
+	} @else if type-of($characters) == "list" {
 		$characters: character-set($characters);
 	}
 	$new-str: ();
@@ -154,4 +154,84 @@
 		}
 	}
 	@return list-to-str($new-str, null);
+}
+
+// Nth Character
+// --------------------------
+/// Get the character on a certain point of the string.
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function nth-character($str, $nth: 1) {
+	@return str-slice($str, $nth, $end-at: -1);
+}
+
+// First Character
+// --------------------------
+/// Get the first character of a string.
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function first-character($str) {
+	@return str-slice($str, 1, $end-at: -1);
+}
+
+// Last Character
+// --------------------------
+/// Get the first character of a string.
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function last-character($str) {
+	@return str-slice($str, str-length($str), $end-at: -1);
+}
+
+// Remove Character
+// --------------------------
+/// Remove the character of a string on a certain index
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function remove-character($str, $index) {
+	$part_before: str-slice($str, 0, $index - 1);
+	$part_after: str-slice($str, $index + 1, str-length($str));
+	@return "#{$part_before}#{$part_after}";
+}
+
+// Remove First Character
+// --------------------------
+/// Remove the first character of a string
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function remove-first-character($str) {
+	@return str-slice($str, 2, str-length($str));
+}
+
+// Remove Last Character
+// --------------------------
+/// Remove the first character of a string
+/// @access public
+/// @group Character utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function remove-last-character($str) {
+	@return str-slice($str, 0, str-length($str) - 1);
 }

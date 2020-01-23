@@ -1,0 +1,48 @@
+@include test(
+	"fs-join() function",
+	"Returns a correct path of multiple given values"
+) {
+	@include is-equal(
+		fs-join("src/fonts", "fontname.ttf"),
+		"src/fonts/fontname.ttf"
+	);
+}
+@include test(
+	"fs-join() function",
+	"Returns a correct path of multiple given values"
+) {
+	@include is-equal(
+		fs-join("src/fonts/", "fontname.ttf"),
+		"src/fonts/fontname.ttf"
+	);
+}
+
+@include test(
+	"fs-join() function",
+	"Returns a correct path of multiple given values"
+) {
+	@include is-equal(
+		fs-join("/src/fonts/", "fontname.ttf"),
+		"/src/fonts/fontname.ttf"
+	);
+}
+
+@include test(
+	"fs-join() function",
+	"Returns a correct path of multiple given values"
+) {
+	@include is-equal(
+		fs-join("/src/fonts/", "/fontname.ttf"),
+		"src/fonts/fontname.ttf"
+	);
+}
+
+@include test(
+	"fs-join() function",
+	"Returns a correct path of multiple given values"
+) {
+	@include is-equal(
+		fs-join("/src/fonts/", "some/inthe/middle", "/fontname.ttf"),
+		"src/fonts/some/inthe/middle/fontname.ttf"
+	);
+}

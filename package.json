@@ -1,43 +1,43 @@
 {
-  "name": "@henris/utils",
-  "version": "0.0.16",
-  "description": "Utilities module for Henri's",
-  "main": "index.scss",
-  "scripts": {
-    "test": "npm run test:sass && npm run test:node-sass",
-    "test:sass": "sass test/index.scss dist/test/sass/index.css",
-    "test:node-sass": "node-sass test/index.scss dist/test/node-sass/index.css",
-    "build": "npm run build:sass && npm run build:node-sass",
-    "build:sass": "sass index.local.scss dist/sass/index.css",
-    "build:node-sass": "node-sass index.local.scss dist/node-sass/index.css",
-    "build:dist": "npm run stylelint:fix && npm run build",
-    "stylelint": "stylelint 'src/scss/**/*.scss'",
-    "stylelint:fix": "stylelint 'src/scss/**/*.scss' --fix",
-    "prepublishOnly": "npm run build:dist"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/henris-style/utils.git"
-  },
-  "keywords": [
-    "Sass",
-    "Toolbelt",
-    "Typography",
-    "Henri's"
-  ],
-  "author": "Sil van Diepen",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/henris-style/utils/issues"
-  },
-  "homepage": "https://github.com/henris-style/utils#readme",
-  "devDependencies": {
-    "node-sass": "^4.13.0",
-    "sass": "^1.23.1",
-    "ssst": "0.0.7",
-    "stylelint": "^11.1.1",
-    "stylelint-logical-order": "0.0.6",
-    "stylelint-order": "^3.1.1"
-  },
-  "dependencies": {}
+	"name": "@henris/utils",
+	"version": "0.0.16",
+	"description": "Utilities module for Henri's",
+	"main": "index.scss",
+	"scripts": {
+		"test": "npm run test:sass && npm run test:node-sass",
+		"test:sass": "sass test/index.scss dist/test/sass/index.css",
+		"test:node-sass": "node-sass test/index.scss dist/test/node-sass/index.css",
+		"build": "npm run build:sass && npm run build:node-sass",
+		"build:sass": "sass index.local.scss dist/sass/index.css",
+		"build:node-sass": "node-sass index.local.scss dist/node-sass/index.css",
+		"build:dist": "npm run stylelint:fix && npm run build",
+		"stylelint": "stylelint 'src/**/*.scss'",
+		"stylelint:fix": "stylelint 'src/**/*.scss' --fix",
+		"prepublishOnly": "npm run build:dist"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/henris-style/utils.git"
+	},
+	"keywords": [
+		"Sass",
+		"Toolbelt",
+		"Typography",
+		"Henri's"
+	],
+	"author": "Sil van Diepen",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/henris-style/utils/issues"
+	},
+	"homepage": "https://github.com/henris-style/utils#readme",
+	"devDependencies": {
+		"node-sass": "^4.13.0",
+		"sass": "^1.23.1",
+		"ssst": "0.0.7",
+		"stylelint": "^11.1.1",
+		"stylelint-logical-order": "0.0.6",
+		"stylelint-order": "^3.1.1"
+	},
+	"dependencies": {}
 }
