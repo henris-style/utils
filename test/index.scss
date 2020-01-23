@@ -1,9 +1,11 @@
 // Import Utils
-@import '../index.scss';
+@import "../index.scss";
 
 // Import Ssst test suite
-@import '../node_modules/ssst/index.scss';
+@import "../node_modules/ssst/index.scss";
 
 // Testing files
-@import 'test-string';
-@import 'test-unit';
+@import "test-string";
+@import "test-unit";
+@import "test-conditional";
+@import "test-numbers";

@@ -1,0 +1,7 @@
+@function if-else($if: null, $else: null) {
+	@if $if {
+		@return $if;
+	} @else {
+		@return $else;
+	}
+}

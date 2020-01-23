@@ -1,0 +1,31 @@
+// Half the value
+@function h($num) {
+	@return $num / 2;
+}
+@function half($num) {
+	@return h($num);
+}
+
+// Make number ABS
+@function abs($num) {
+	@if $number >= 0 {
+		@return $num;
+	}
+	@return -1 * $num;
+}
+
+// Make the number negative or positive
+@function n($num) {
+	@if $num < 0 {
+		@return abs($num);
+	}
+	@return 0 - $num;
+}
+@function negative($num) {
+	@return n($num);
+}
+
+// A more simple function to create Percentages
+@function perc($val, $of) {
+	@return ($val / $of) * 100%;
+}

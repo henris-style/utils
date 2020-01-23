@@ -1,0 +1,27 @@
+@include test("h() function", "Return a default value") {
+	@include is-equal(h(5), 2.5);
+}
+@include test(
+	"n() function",
+	"Return a negative value of the given value, pos > neg"
+) {
+	@include is-equal(n(5), -5);
+}
+
+@include test(
+	"n() function",
+	"Return a negative value of the given value, neg > pos"
+) {
+	@include is-equal(n(-5), 5);
+}
+
+@include test("abs() function", "Return a Absolute value of a negative value") {
+	@include is-equal(abs(-5), 5);
+}
+
+@include test(
+	"perc() function",
+	"Return a percentage based on value of container"
+) {
+	@include is-equal(perc(5, 10), 50%);
+}

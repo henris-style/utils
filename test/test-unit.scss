@@ -1,7 +1,6 @@
-
 @include test(
-	'rem() function',
-	'Convert a value in pixels to the same value in rem.'
+	"rem() function",
+	"Convert a value in pixels to the same value in rem."
 ) {
 	@include is-equal(rem(16), 1rem);
 }
