@@ -32,3 +32,21 @@
 		@return ();
 	}
 }
+
+@function map-next($val, $map) {
+  $list: map-keys($map);
+  $index: (index($list, $value)) + 1;
+  @if $index > length($list) {
+    @return null;
+  }
+  @return nth($list, $index);
+}
+@function map-previous($val, $map) {
+  $list: map-keys($map);
+  $index: (index($list, $value)) - 1;
+  @if $index < 0 {
+    @return null;
+  }
+  @return nth($list, $index);
+}
+
