@@ -1,6 +1,6 @@
 {
 	"name": "@henris/utils",
-	"version": "0.0.17",
+	"version": "0.0.18",
 	"description": "Utilities module for Henri's",
 	"main": "index.scss",
 	"scripts": {
