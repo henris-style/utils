@@ -10,11 +10,11 @@
 @function fs-join($partials...) {
 	$list: ();
 	$startWithSlash: false;
+
 	@for $i from 1 through length($partials) {
 		$partial: nth($partials, $i);
 		@if first-character($partial) == "/" {
 			$partial: remove-first-character($partial);
-			@debug $i;
 			@if $i == 1 {
 				$startWithSlash: true;
 			}
@@ -28,9 +28,11 @@
 			$list: append($list, $part);
 		}
 	}
+
+	$path: simple-to-string($list, "/");
 	@if $startWithSlash {
-		@return unquote("/#{to-string($list, "/")}");
+		@return unquote("/#{$path}");
 	} @else {
-		@return to-string($list, "/");
+		@return $path;
 	}
 }

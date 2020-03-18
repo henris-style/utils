@@ -165,8 +165,8 @@
 /// @output String
 /// @parameter String
 
-@function nth-character($str, $nth: 1) {
-	@return str-slice($str, $nth, $end-at: -1);
+@function nth-character($string, $nth: 1) {
+	@return nth(to-letter-list($string), $nth);
 }
 
 // First Character
@@ -179,7 +179,7 @@
 /// @parameter String
 
 @function first-character($str) {
-	@return str-slice($str, 1, $end-at: -1);
+	@return str-slice($str, 1, 1);
 }
 
 // Last Character

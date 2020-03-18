@@ -1,7 +1,21 @@
-@function str-to-list($string, $separator: '.', $startAt: 1) {
-	$string: str-replace($string, '__', '.'); //
-	$string: str-replace($string, '--', '.'); //
-	$string: str-replace($string, '_', '.'); //
+/// String to List function
+// --------------------------
+/// Converts a string into a list breaking it apart by the `separator`
+///
+/// @access public
+/// @group list utilities
+///
+/// @param {string} $string
+/// @param {string} $separator
+/// @param {number} $startAt
+///
+/// @return {list}
+///
+
+@function str-to-list($string, $separator: ".", $startAt: 1) {
+	$string: str-replace($string, "__", "."); //
+	$string: str-replace($string, "--", "."); //
+	$string: str-replace($string, "_", "."); //
 
 	$workStr: str-slice($string, $startAt);
 	$list: ();
@@ -18,13 +32,51 @@
 	@return $list;
 }
 
-// List Functions
+/// Prepend function
+// --------------------------
+/// Add a string value to a list.
+///
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {string} $value
+/// @param {string} $separator
+///
+/// @return {list}
+///
 
 @function prepend($list, $value, $seperator: space) {
 	@return join($value, $list, $seperator);
 }
 
-@function to-string($list, $glue: '', $is-nested: false) {
+/// To String function
+// --------------------------
+/// Converts a list to a string.
+///
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {string} $glue
+/// @param {boolean} $is-nested
+///
+/// @return {string}
+///
+
+@function simple-to-string($list, $glue) {
+	$str: null;
+	@for $i from 1 through length($list) {
+		@if $i == 1 {
+			$str: nth($list, $i);
+		} @else {
+			$str: unquote("#{$str}#{$glue}#{nth($list,$i)}");
+		}
+	}
+	@return $str;
+}
+
+@function to-string($list, $glue: "", $is-nested: false) {
 	$result: null;
 
 	@for $i from 1 through length($list) {
@@ -43,10 +95,29 @@
 
 	@return $result;
 }
+
+/// To List function
+// --------------------------
+/// Simple function to convert a value into a list.
+///
+/// @access public
+/// @group list utilities
+/// @param {string} $value
+/// @return {string}
+///
 @function to-list($value) {
 	@return if(type-of($value) != list, ($value), $value);
 }
 
+/// List length function
+// --------------------------
+/// Get the length of a list
+///
+/// @access public
+/// @group list utilities
+/// @param {list} $list
+/// @return {number}
+///
 @function list-length($list) {
 	$length: 0;
 	@each $item in $list {
@@ -55,7 +126,19 @@
 	@return $length;
 }
 
-@function list-to-str($list, $separator: ', ', $last: true) {
+// List to String function
+// --------------------------
+/// Converts a (multi dimensional) list to a string.
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {string} $separator
+/// @param {boolean} $last
+/// @output list
+///
+
+@function list-to-str($list, $separator: ", ", $last: true) {
 	$string: nth($list, 1);
 	@if list-length($list) > 1 {
 		@for $i from 2 through list-length($list) {
@@ -70,17 +153,38 @@
 	@return $string;
 }
 
-@function to-letter-list($str) {
+// To Letter List function
+// --------------------------
+/// Returns a list with all letters of a string.
+/// @access public
+/// @group list utilities
+///
+/// @param {string} $string
+/// @output list
+///
+
+@function to-letter-list($string) {
 	$letters: ();
-	@for $i from 1 through str-length($str) {
-		$letters: append($letters, str-slice($str, $i, $i));
+	@for $i from 1 through str-length($string) {
+		$letters: append($letters, str-slice($string, $i, $i));
 	}
 	@return $letters;
 }
 
+// Shortests
+// --------------------------
+/// Returns the shortest list or string
+/// @access public
+/// @group list utilities
+///
+/// @param {list / string} $v1
+/// @param {list / string}  $v2
+/// @output list / string
+///
+
 @function shortest($v1, $v2) {
 	@if type-of($v1) == type-of($v2) {
-		@if type-of($v1) == 'list' {
+		@if type-of($v1) == "list" {
 			@if length($v1) < length($v2) {
 				@return $v1;
 			} @else if length($v1) > length($v2) {
@@ -89,7 +193,7 @@
 				@warn '#{$v1} (length #{length($v2)}) has the same length as #{$v2} (length #{length($v2)}), returned #{$v1}';
 				@return $v1;
 			}
-		} @else if type-of($v1) == 'string' {
+		} @else if type-of($v1) == "string" {
 			@if str-length($v1) < str-length($v2) {
 				@return $v1;
 			} @else if str-length($v1) > str-length($v2) {
@@ -104,15 +208,16 @@
 	}
 }
 
-@function list-contains($list, $string) {
-	$pass: false;
-	@each $item in $list {
-		@if $item == $string {
-			$pass: true;
-		}
-	}
-	@return $pass;
-}
+// Remove Nth function
+// --------------------------
+/// Remove an item from a list at a certain index
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {number} $index
+/// @output list
+///
 
 @function remove-nth($list, $index) {
 	$result: null;
@@ -137,6 +242,18 @@
 	@return $result;
 }
 
+// Insert Nth function
+// --------------------------
+/// Inserts an item into a string at a certain index
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {number} $index
+/// @param {string} $value
+/// @output list
+///
+
 @function insert-nth($list, $index, $value) {
 	$result: null;
 
@@ -160,6 +277,17 @@
 	@return $result;
 }
 
+// Key Index function
+// --------------------------
+/// Returns the index of a item in a list
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {string} $item
+/// @output Boolean
+///
+
 @function key-index($list, $item) {
 	$i: 0;
 	@each $key, $value in $list {
@@ -169,4 +297,24 @@
 		$i: $i + 1;
 	}
 	@return -1;
+}
+
+// List contains function
+// --------------------------
+/// Check if a list contains a value
+/// @access public
+/// @group list utilities
+///
+/// @param {list} $list
+/// @param {string} $string
+/// @output Boolean
+///
+
+@function list-contains($list, $string) {
+	@each $value in $list {
+		@if $value == $string {
+			@return true;
+		}
+	}
+	@return false;
 }

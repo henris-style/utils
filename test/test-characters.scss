@@ -22,7 +22,7 @@
 	"remove-character() function",
 	"Returns a string with a character removed on given index"
 ) {
-	@include is-equal(nth-character("Helvetica", 3), "Hevetica");
+	@include is-equal(remove-character("Helvetica", 3), "Hevetica");
 }
 
 @include test(

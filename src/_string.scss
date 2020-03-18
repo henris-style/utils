@@ -51,7 +51,7 @@
 /// @parameter String String
 
 // Make str replace accept lists.
-@function str-replace($haystack, $needles, $replacers: '') {
+@function str-replace($haystack, $needles, $replacers: "") {
 	// Check if the $needle argument is a list and based of that
 	// go through the list replace all instances.
 	// Also check if both needle and haystack are lists. If the list are the same length,
@@ -64,7 +64,7 @@
 		$replacers: list-to-str($replacers);
 	}
 
-	@if type-of($needles) == 'list' and type-of($replacers) == 'list' {
+	@if type-of($needles) == "list" and type-of($replacers) == "list" {
 		@if length($needles) == length($replacers) {
 			// Check if the $needle argument is a string or a list and based of that
 			// go through the list or string to replace all instances.
@@ -78,7 +78,7 @@
 				}
 			}
 		} @else {
-			@if type-of($replacers) == 'list' {
+			@if type-of($replacers) == "list" {
 				$replacers: list-to-str($replacers);
 			}
 			@for $i from 1 through length($needles) {
@@ -92,9 +92,9 @@
 	}
 	// If only the needle is a list, just replace all instance of the
 	// strings in this list with the default replacer.
-	@else if type-of($needles) == 'list' {
+	@else if type-of($needles) == "list" {
 		@each $needles in $needles {
-			@if type-of($replacers) == 'list' {
+			@if type-of($replacers) == "list" {
 				$replacers: list-to-str($replacers);
 			}
 			$haystack: str-replace-func($haystack, $needles, $replacers);
@@ -118,9 +118,9 @@
 /// @parameter String
 
 // The str replace function
-@function str-replace-func($haystack, $needle, $replace: '') {
+@function str-replace-func($haystack, $needle, $replace: "") {
 	// First make sure needle nor haystack are empty values;
-	@if $needle == ' ' {
+	@if $needle == " " {
 		$index: str-index($haystack, $needle);
 		@if $index {
 			@return str-slice($haystack, 1, $index - 1) + $replace +
@@ -136,7 +136,7 @@
 		@return $haystack;
 	} @else {
 		// And check if the needle and haystack are actually strs, otherwise warn.
-		@if type-of($haystack) == 'string' and type-of($needle) == 'string' {
+		@if type-of($haystack) == "string" and type-of($needle) == "string" {
 			$index: str-index($haystack, $needle);
 			@if $index {
 				@return str-slice($haystack, 1, $index - 1) + $replace +
@@ -147,10 +147,10 @@
 					);
 			}
 		}
-		@if type-of($haystack) != 'string' {
+		@if type-of($haystack) != "string" {
 			@warn '#{$haystack}(#{type-of($haystack)}) is not a str.';
 		}
-		@if type-of($needle) != 'string' {
+		@if type-of($needle) != "string" {
 			@warn '#{$needle}(#{type-of($needle)}) is not a str.';
 		}
 	}
@@ -168,20 +168,20 @@
 
 @function to-str($str) {
 	// Check if the value is already a string, if so just return the value
-	@if type-of($str) == 'string' {
+	@if type-of($str) == "string" {
 		@return $str;
 	}
 	// Check if the value will become a string, if you put it in quotes.
-	@else if type-of('#{$str}') == 'string' {
-		@return '#{$str}';
+	@else if type-of("#{$str}") == "string" {
+		@return "#{$str}";
 	} @else if $str == false {
-		@return 'false';
+		@return "false";
 	} @else if $str == true {
-		@return 'false';
+		@return "false";
 	}
 	// If it still won't be a string, just try to throw it back.
 	@else {
-		@return '#{$str}';
+		@return "#{$str}";
 	}
 }
 
@@ -189,7 +189,7 @@
 	@if str-index($haystack, $needle) !=
 		null and
 		str-index($haystack, $needle) !=
-		'' and
+		"" and
 		type-of(str-index($haystack, $needle)) !=
 		null
 	{
@@ -209,11 +209,11 @@
 /// @parameter String
 
 @function dasherize($str) {
-	$str: str-replace($str, ' ', '-');
-	$str: str-replace($str, ' ', '-');
+	$str: str-replace($str, " ", "-");
+	$str: str-replace($str, " ", "-");
 	$str: allowed-characters(
 		to-lower-case(safe-characters($str)),
-		('a-z', '0-9', '-')
+		("a-z", "0-9", "-")
 	);
 	@return $str;
 }
@@ -228,7 +228,7 @@
 /// @parameter String
 
 @function underscore($str) {
-	@return str-replace-func(dasherize($str), '-', '_');
+	@return str-replace-func(dasherize($str), "-", "_");
 }
 
 // letter-uppercase function
@@ -253,9 +253,9 @@
 	@return list-to-str($new-str, null);
 }
 
-// letter-lowercase function
+// letter-uppercase function
 // --------------------------
-/// Lowercase one letter in a string, by default the first one.
+/// Uppercase one letter in a string, by default the first one.
 /// @access public
 /// @group string utilities
 /// @type String
@@ -263,61 +263,14 @@
 /// @parameter String
 
 @function letter-lowercase($str, $letter: 1) {
+	$new-str: ();
 	@if $letter > 1 {
-		$str: '#{str-slice($str,1,$letter)}#{to-lower-case(str-slice($str,$letter,1))}#{str-slice($str,$letter + 1,str-length($str))}';
+		$new-str: append($new-str, str-slice($str, 1, $letter));
+		$new-str: append($new-str, to-lower-case(str-slice($str, $letter, 1)));
+		$new-str: append($new-str), str-slice($str, $letter + 1, str-length($str));
 	} @else {
-		$str: '#{to-lower-case(str-slice($str,1,1))}#{str-slice($str,2,str-length($str))}';
+		$new-str: append($new-str, to-lower-case(str-slice($str, 1, 1)));
+		$new-str: append($new-str, str-slice($str, 2, str-length($str)));
 	}
-	@return $str;
-}
-
-// PascalCase function
-// --------------------------
-/// convert any string to PascalCase
-/// @access public
-/// @group string utilities
-/// @type String
-/// @output String
-/// @parameter String
-
-@function PascalCase($str) {
-	$new-str: allowed-characters(
-		to-lower-case(safe-characters($str)),
-		('a-Z', '0-9', ' ')
-	);
-	$temp-list: str-splice($new-str, ' ');
-
-	$return-str: ();
-	@for $i from 1 through length($temp-list) {
-		$return-str: append($return-str, letter-uppercase(nth($temp-list, $i)));
-	}
-	@return trim(list-to-str($return-str, null));
-}
-
-// camelCase function
-// --------------------------
-/// Convert a string which can be used as slug
-/// @access public
-/// @group string utilities
-/// @type String
-/// @output String
-/// @parameter String
-
-@function camelCase($str) {
-	$str: PascalCase($str);
-	$str: letter-lowercase($str);
-	@return $str;
-}
-
-@function trim($str) {
-	@if str-slice($str, 1, 1) == '' {
-		@debug 'there is a empty thingy here';
-	}
-	@if str-slice($str, 1, 1) == ' ' {
-		@return trim(str-slice($str, 2, str-length($str)));
-	} @else if str-slice($str, str-length($str), str-length($str)) == ' ' {
-		@return trim(str-slice($str, 1, str-length($str) - 1));
-	} @else {
-		@return $str;
-	}
+	@return list-to-str($new-str, null);
 }
