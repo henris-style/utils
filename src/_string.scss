@@ -274,3 +274,20 @@
 	}
 	@return list-to-str($new-str, null);
 }
+
+// str-remove-whitespace function
+// --------------------------
+/// Removes all whitespaces from string
+/// @access public
+/// @group string utilities
+/// @type String
+/// @output String
+/// @parameter String
+
+@function str-remove-whitespace($str) {
+  @while (str-index($str, ' ') != null) {
+    $index: str-index($str, ' ');
+    $str: "#{str-slice($str, 0, $index - 1)}#{str-slice($str, $index + 1)}";
+  }
+  @return $str;
+}

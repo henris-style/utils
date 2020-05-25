@@ -46,3 +46,13 @@ $testString: "The quïck brøwn föx jumps over thé l4zy d0g";
 @include test("add-zeros() function", "Add extra zeros to a character") {
 	@include is-equal(add-zeros(1, 5), "00001");
 }
+
+@include test(
+	"str-remove-whitespace() function",
+	"Remove all whitespaces from a string"
+) {
+	@include is-equal(
+		str-remove-whitespace($testString),
+		"Thequïckbrøwnföxjumpsoverthél4zyd0g"
+	);
+}
